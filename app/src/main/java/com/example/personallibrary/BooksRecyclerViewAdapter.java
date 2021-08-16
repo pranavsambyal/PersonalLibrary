@@ -1,6 +1,7 @@
 package com.example.personallibrary;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,8 @@ import androidx.transition.TransitionManager;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+
+import static com.example.personallibrary.BookActivity.BOOK_ID;
 
 public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecyclerViewAdapter.Viewholder> {
     private static final String TAG = "BRecyclerViewAdapter";
@@ -47,7 +50,10 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, books.get(position).getName() + " Selected", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(mContext,BookActivity.class);
+                intent.putExtra(BOOK_ID,books.get(position).getId());
+                intent.putExtra("bookName",books.get(position).getName());
+                mContext.startActivity(intent);
                 Log.d(TAG, "onClick: called");
             }
         });
